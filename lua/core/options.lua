@@ -40,7 +40,7 @@ opt.winwidth = 30
 opt.pumheight = 15
 opt.showcmd = false
 
-opt.cmdheight = 0
+opt.cmdheight = 2
 opt.laststatus = 3
 opt.list = true
 opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
@@ -63,25 +63,9 @@ opt.showbreak = '↳ '
 opt.foldlevelstart = 99
 opt.foldmethod = 'marker'
 
-opt.number = true
-opt.signcolumn = 'yes'
+opt.relativenumber = true
+opt.signcolumn = 'no'
 opt.spelloptions = 'camel'
 
 opt.textwidth = 100
 opt.colorcolumn = '100'
-if vim.loop.os_uname().sysname == 'Darwin' then
-  vim.g.clipboard = {
-    name = 'macOS-clipboard',
-    copy = {
-      ['+'] = 'pbcopy',
-      ['*'] = 'pbcopy',
-    },
-    paste = {
-      ['+'] = 'pbpaste',
-      ['*'] = 'pbpaste',
-    },
-    cache_enabled = 0,
-  }
-  vim.g.python_host_prog = '/usr/bin/python'
-  vim.g.python3_host_prog = '/usr/local/bin/python3'
-end

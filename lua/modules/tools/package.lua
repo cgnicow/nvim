@@ -8,11 +8,12 @@ package({
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-telescope/telescope-fzy-native.nvim' },
+    { 'nvim-telescope/telescope-file-browser.nvim' },
   },
 })
 
 package({
-  'glepnir/hlsearch.nvim',
+  'nvimdev/hlsearch.nvim',
   event = 'BufRead',
   config = function()
     require('hlsearch').setup()
