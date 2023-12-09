@@ -14,6 +14,10 @@ function config.nvim_treesitter()
       'bash',
       'graphql',
       'diff',
+      'ini',
+      'toml',
+      'glsl',
+      'cpp',
     },
     highlight = {
       enable = true,

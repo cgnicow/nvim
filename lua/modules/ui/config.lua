@@ -1,8 +1,6 @@
 local config = {}
 
-function config.zephyr()
-  vim.cmd('colorscheme industry')
-end
+vim.cmd('colorscheme industry')
 
 function config.indent_blankline()
   require('ibl').setup({
