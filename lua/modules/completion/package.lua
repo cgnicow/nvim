@@ -1,41 +1,67 @@
-local package = require('core.pack').package
-local conf = require('modules.completion.config')
+local package = require("core.pack").package
+local conf = require("modules.completion.config")
+
+local function lsp_fts(type)
+  type = type or nil
+  local fts = {}
+  fts.backend = {
+    "lua",
+    "nasm",
+    "asm",
+    "s",
+    "S",
+    "sh",
+    "rust",
+    "c",
+    "cpp",
+    "zig",
+    "python",
+  }
+
+  fts.frontend = {
+    "json",
+  }
+  if not type then
+    return vim.list_extend(fts.backend, fts.frontend)
+  end
+  return fts[type]
+end
 
 package({
-  'neovim/nvim-lspconfig',
-  -- used filetype to lazyload lsp
-  -- config your language filetype in here
-  ft = { 'lua', 'rust', 'c', 'nasm', 'bash' },
+  "hrsh7th/nvim-cmp",
+  event = "LspAttach",
+  config = conf.nvim_cmp,
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
+    "saadparwaiz1/cmp_luasnip",
+    {
+      "L3MON4D3/LuaSnip",
+      version = "2.*",
+      build = "make install_jsregexp",
+      dependencies = "rafamadriz/friendly-snippets",
+      config = conf.luasnip,
+    },
+    "onsails/lspkind.nvim",
+  },
+})
+
+package({
+  "neovim/nvim-lspconfig",
+  ft = lsp_fts(),
   config = conf.nvim_lsp,
 })
 
 package({
-  'glepnir/lspsaga.nvim',
-  event = 'BufRead',
-  dev = false,
+  "nvimdev/lspsaga.nvim",
+  ft = lsp_fts(),
+  event = "LspAttach",
   config = conf.lspsaga,
 })
 
 package({
-	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
-	config = conf.nvim_cmp,
-	dependencies = {
-    -- cmp sources
-		{ "hrsh7th/cmp-nvim-lsp" },
-		{ "hrsh7th/cmp-path" },
-		{ "hrsh7th/cmp-buffer" },
-		{ "hrsh7th/cmp-cmdline" },
-		{ "saadparwaiz1/cmp_luasnip" },
-		-- snip
-    {
-      "L3MON4D3/LuaSnip",
-      dependencies = "rafamadriz/friendly-snippets",
-      config = conf.lua_snip,
-    },
-		-- icon
-		{ "onsails/lspkind.nvim", config = conf.lspkind },
-		-- nvim-autopairs
-		{ "windwp/nvim-autopairs", config = conf.auto_pairs },
-	},
+  "ziglang/zig.vim",
+  ft = lsp_fts(),
 })

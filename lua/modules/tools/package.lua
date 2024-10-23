@@ -1,21 +1,45 @@
-local package = require('core.pack').package
-local conf = require('modules.tools.config')
+local package = require("core.pack").package
+local conf = require("modules.tools.config")
 
 package({
-  'nvim-telescope/telescope.nvim',
-  cmd = 'Telescope',
-  config = conf.telescope,
+  "nvimdev/guard.nvim",
+  ft = { "c", "cpp", "h", "hpp", "rust", "lua", "python", "asm" },
+  config = conf.guard,
   dependencies = {
-    { 'nvim-lua/plenary.nvim' },
-    { 'nvim-telescope/telescope-fzy-native.nvim' },
-    { 'nvim-telescope/telescope-file-browser.nvim' },
+    { "nvimdev/guard-collection" },
   },
 })
 
+--  package({
+--    "nvimdev/dyninput.nvim",
+--    ft = { "c", "cpp", "rust", "lua" },
+--    config = conf.dyninput,
+--    dependencies = "nvim-treesitter/nvim-treesitter"
+--  })
+
 package({
-  'nvimdev/hlsearch.nvim',
-  event = 'BufRead',
+  "ii14/emmylua-nvim",
+  ft = "lua",
+})
+
+package({
+  "mrcjkb/rustaceanvim",
+  version = "^3", -- recommended
+  ft = "rust",
+})
+
+package({
+  "nvimdev/hlsearch.nvim",
+  event = "BufRead",
   config = function()
-    require('hlsearch').setup()
+    require("hlsearch").setup()
+  end,
+})
+
+package({
+  "nvimdev/rapid.nvim",
+  cmd = "Rapid",
+  config = function()
+    require("rapid").setup()
   end,
 })
