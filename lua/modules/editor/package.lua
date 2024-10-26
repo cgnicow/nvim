@@ -56,3 +56,8 @@ package({
     require("Comment").setup()
   end,
 })
+
+package({
+  "tzachar/local-highlight.nvim",
+  config = conf.highlight,
+})
